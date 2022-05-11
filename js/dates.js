@@ -34,8 +34,18 @@ function getDay(date, lang) {
 // Вид должен быть такой 12:02(часы и минуты), то есть если у вас одно число на одном из
 // компонентов, то добавляем 0 перед ним
 function formatTime(date) {
-  return date.toLocaleTimeString().slice(0, -3);
+  function addZero(i) {
+    if (i < 10) {
+      i = `0${i}`
+    }
+    return i;
+  }
+  let hours = addZero(date.getHours());
+  let minutes = addZero(date.getMinutes());
+  let time = `${hours}:${minutes}`;
+  return time;
 }
+
 
 /*
 Напишите функцию getLastDayOfMonth(year, month), 
@@ -47,9 +57,8 @@ month – месяц от 0 до 11.
 К примеру, getLastDayOfMonth(2012, 1) = 29 (високосный год, февраль).
 */
 function getLastDayOfMonth(year, month) {
-  let date = new Date(year, month);
-  let lastDayDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  return lastDayDate.toLocaleDateString().slice(0, -8);
+  let date = new Date(year, month + 1, 0);
+  return date.getDate();
 }
 
 module.exports = {
